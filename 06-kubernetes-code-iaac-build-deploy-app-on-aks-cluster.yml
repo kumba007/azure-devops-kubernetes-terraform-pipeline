@@ -32,10 +32,11 @@ stages:
         - task: CopyFiles@2
           inputs:
             SourceFolder: '$(System.DefaultWorkingDirectory)'
-            Contents: '**'
+            Contents: '**/*.*'
             TargetFolder: '$(Build.ArtifactStagingDirectory)'
         - bash: echo $(System.DefaultWorkingDirectory)
         - bash: echo $(Build.ArtifactStagingDirectory)
+        - bash: ls -ltr $(Build.ArtifactStagingDirectory)
         - task: PublishBuildArtifacts@1
           inputs:
             PathtoPublish: '$(Build.ArtifactStagingDirectory)'

@@ -32,32 +32,32 @@ stages:
         - task: CopyFiles@2
           inputs:
             SourceFolder: '$(System.DefaultWorkingDirectory)'
-            Contents: '**/*.yaml'
+            Contents: '**'
             TargetFolder: '$(Build.ArtifactStagingDirectory)'
         - task: PublishBuildArtifacts@1
           inputs:
             PathtoPublish: '$(Build.ArtifactStagingDirectory)'
             ArtifactName: 'Build_artifact'
             publishLocation: 'Container'
-  - stage: Deploy
-    jobs:
-      - job: Deploy
-        displayName: Deploy Image
-        pool:
-          vmImage: 'ubuntu-latest'
-        steps:
-        - bash: ls -ltr -R $(System.DefaultWorkingDirectory)
-        - bash: ls -ltr -R $(System.ArtifactsDirectory)
-        - task: DownloadPipelineArtifact@2
-          inputs:
-            buildType: 'current'
-            artifactName: 'Build_artifact'
-            itemPattern: '**/*.yaml'
-            targetPath: '$(System.ArtifactsDirectory)'
-        - task: KubernetesManifest@0
-          inputs:
-            action: 'deploy'
-            kubernetesServiceConnection: 'My_AKS_Kubernetes_Connection'
-            namespace: 'default'
-            manifests: '$(System.ArtifactsDirectory)/deployment.yaml'
-            containers: 'kumba/currency-exchange-devops:$(tag)'
+  # - stage: Deploy
+  #   jobs:
+  #     - job: Deploy
+  #       displayName: Deploy Image
+  #       pool:
+  #         vmImage: 'ubuntu-latest'
+  #       steps:
+  #       - bash: ls -ltr -R $(System.DefaultWorkingDirectory)
+  #       - bash: ls -ltr -R $(System.ArtifactsDirectory)
+  #       - task: DownloadPipelineArtifact@2
+  #         inputs:
+  #           buildType: 'current'
+  #           artifactName: 'Build_artifact'
+  #           itemPattern: '**/*.yaml'
+  #           targetPath: '$(System.ArtifactsDirectory)'
+  #       - task: KubernetesManifest@0
+  #         inputs:
+  #           action: 'deploy'
+  #           kubernetesServiceConnection: 'My_AKS_Kubernetes_Connection'
+  #           namespace: 'default'
+  #           manifests: '$(System.ArtifactsDirectory)/deployment.yaml'
+  #           containers: 'kumba/currency-exchange-devops:$(tag)'

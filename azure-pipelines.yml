@@ -10,7 +10,7 @@ pool:
 
 
 stages: 
-- stage: Terraform init 
+- stage: Terraform-init 
   jobs:
     - job: 
       steps:

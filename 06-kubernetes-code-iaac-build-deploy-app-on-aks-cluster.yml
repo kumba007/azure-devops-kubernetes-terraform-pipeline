@@ -34,6 +34,8 @@ stages:
             SourceFolder: '$(System.DefaultWorkingDirectory)'
             Contents: '**'
             TargetFolder: '$(Build.ArtifactStagingDirectory)'
+        - bash: echo $(System.DefaultWorkingDirectory)
+        - bash: echo $(Build.ArtifactStagingDirectory)
         - task: PublishBuildArtifacts@1
           inputs:
             PathtoPublish: '$(Build.ArtifactStagingDirectory)'

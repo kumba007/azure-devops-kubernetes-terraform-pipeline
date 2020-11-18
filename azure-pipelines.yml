@@ -33,11 +33,7 @@ stages:
           backendAzureRmContainerName: 'terrastorageaccountkumba'
           backendAzureRmKey: 'kubernetes-dev.tfstate'
           allowTelemetryCollection: true
-- stage: Terraform_Apply
-  jobs:
-    - job: 
-      steps:
-      - bash: echo "Welcome to stage 2 to perform terraform Apply"
+      
       - task: TerraformCLI@0
         inputs:
           command: 'apply'
@@ -45,6 +41,9 @@ stages:
           commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(publickey.secureFilePath)'
           backendServiceArm: 'azure_resource_manager_service_connection'
      
-     
-
+- stage: Terraform_Apply
+  jobs:
+    - job: 
+      steps:
+      - bash: echo "Welcome to stage 2 to perform terraform Apply"
  

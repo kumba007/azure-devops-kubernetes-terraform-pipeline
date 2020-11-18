@@ -16,4 +16,18 @@ steps:
   name: publickey
   inputs:
     secureFile: 'azure_rsa.pub'
+- task: TerraformCLI@0
+  inputs:
+    command: 'init'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
+    commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(publickey.secureFilePath)'
+    backendType: 'azurerm'
+    backendServiceArm: 'azure_resource_manager_service_connection'
+    ensureBackend: true
+    backendAzureRmResourceGroupName: 'terraform-resource-gp'
+    backendAzureRmResourceGroupLocation: 'westeurope'
+    backendAzureRmStorageAccountName: 'terrastorageaccount'
+    backendAzureRmContainerName: 'terrastorageaccountkumbadev'
+    backendAzureRmKey: 'kubernetes-dev.tfstate'
+    allowTelemetryCollection: true
  

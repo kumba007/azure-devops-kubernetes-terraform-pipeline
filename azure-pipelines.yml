@@ -10,9 +10,9 @@ pool:
 
 
 stages: 
-- stage: Terraform-init 
-  jobs:
-    - job: 
+- stage: Terraform-Init 
+  jobs:  
+    - job: Initializie_resources
       steps:
       - bash : echo Welcome to AKS - Terraform
       - task: DownloadSecureFile@1

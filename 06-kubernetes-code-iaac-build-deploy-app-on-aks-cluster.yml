@@ -54,6 +54,6 @@ stages:
           inputs:
             action: 'deploy'
             kubernetesServiceConnection: 'My_AKS_Kubernetes_Connection'
-            namespace: 'Default'
+            namespace: 'default'
             manifests: '$(System.ArtifactsDirectory)/configuration/kubernetes/deployment.yaml'
             containers: 'kumba/currency-exchange-devops:$(tag)'

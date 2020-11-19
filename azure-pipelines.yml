@@ -33,8 +33,11 @@ stages:
           backendAzureRmContainerName: 'terrastorageaccountkumba'
           backendAzureRmKey: 'kubernetes-dev.tfstate'
           allowTelemetryCollection: true
-
-      
+     
+- stage: Terraform_Apply
+  jobs:
+    - job: 
+      steps:
       - task: TerraformCLI@0
         inputs:
           command: 'apply'
@@ -42,10 +45,12 @@ stages:
           environmentServiceName: 'azure_resource_manager_service_connection'
           commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(publickey.secureFilePath)'
           allowTelemetryCollection: true
-     
-- stage: Terraform_Apply
+- stage: Terraform_destroy
   jobs:
-    - job: 
+    - job: Destroy_resources 
       steps:
-      - bash: echo "Welcome to stage 2 to perform terraform Apply"
- 
+      - task: TerraformCLI@0
+        inputs:
+          command: 'destroy'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
+          environmentServiceName: 'azure_resource_manager_service_connection'

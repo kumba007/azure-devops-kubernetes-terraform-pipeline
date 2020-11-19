@@ -10,7 +10,7 @@ pool:
 
 
 stages: 
-- stage: Terraform_Init 
+- stage: Terraform_Init_Apply 
   jobs:  
     - job: Initializie_resources
       steps:
@@ -33,11 +33,6 @@ stages:
           backendAzureRmContainerName: 'terrastorageaccountkumba'
           backendAzureRmKey: 'kubernetes-dev.tfstate'
           allowTelemetryCollection: true
-     
-- stage: Terraform_Apply
-  jobs:
-    - job: 
-      steps:
       - task: TerraformCLI@0
         inputs:
           command: 'apply'
